@@ -1,11 +1,15 @@
 import React from 'react';
+import CartBtn from '../components/CartBtn';
 
 class Search extends React.Component {
   render() {
     return (
-      <section data-testid="home-initial-message">
-        Digite algum termo de pesquisa ou escolha uma categoria.
-      </section>
+      <div>
+        <section data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </section>
+        <CartBtn />
+      </div>
     );
   }
 }
