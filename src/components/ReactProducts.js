@@ -5,7 +5,7 @@ class ReactProducts extends Component {
   render() {
     const { title, thumbnail, price } = this.props;
     return (
-      <section>
+      <section data-testid="product">
         <p>{ title }</p>
         <img src={ thumbnail } alt={ title } />
         <p>{`R$ ${price}`}</p>

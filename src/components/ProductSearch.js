@@ -6,6 +6,7 @@ class ProductSearch extends Component {
   state = {
     valueInput: '',
     resultsSearch: [],
+    notResults: undefined,
   };
 
   onInputChange = ({ target }) => {
@@ -21,10 +22,24 @@ class ProductSearch extends Component {
     this.setState({
       resultsSearch: endpointProduct.results,
     });
+    this.resultsProduct();
+  };
+
+  resultsProduct = () => {
+    const { resultsSearch } = this.state;
+    if (resultsSearch.length !== 0) {
+      this.setState({
+        notResults: false,
+      });
+    } else {
+      this.setState({
+        notResults: true,
+      });
+    }
   };
 
   render() {
-    const { valueInput, resultsSearch } = this.state;
+    const { valueInput, resultsSearch, notResults } = this.state;
     return (
       <div>
         <form>
@@ -42,15 +57,19 @@ class ProductSearch extends Component {
           >
             Buscar
           </button>
-          {resultsSearch.map(({ title, thumbnail, price, id }) => (
-            <div key={ id }>
-              <ReactProducts
-                title={ title }
-                thumbnail={ thumbnail }
-                price={ price }
-              />
-            </div>
-          ))}
+          {notResults ? (
+            <section>
+              {resultsSearch.map(({ title, thumbnail, price, id }) => (
+                <div key={ id }>
+                  <ReactProducts
+                    title={ title }
+                    thumbnail={ thumbnail }
+                    price={ price }
+                  />
+                </div>
+              ))}
+            </section>) : (<p>Nenhum produto foi encontrado</p>)}
+
         </form>
       </div>
     );
