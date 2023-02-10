@@ -5,7 +5,16 @@ class ProductSearch extends Component {
     return (
       <div>
         <form>
-            <input />
+            <input
+              type="text"
+              data-testid="query-input"
+            />
+            <button
+              type="button"
+              data-testid="query-button"
+            >
+              Buscar
+            </button>
         </form>
       </div>
     );

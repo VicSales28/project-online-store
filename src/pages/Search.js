@@ -1,6 +1,7 @@
 import React from 'react';
 import { getCategories } from '../services/api';
 import CartBtn from '../components/CartBtn';
+import ProductSearch from '../components/ProductSearch';
 
 class Search extends React.Component {
   state = {
@@ -29,7 +30,7 @@ class Search extends React.Component {
         <section data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </section>
-
+        <ProductSearch />
         <section>
           {
             categories.map((category) => (
