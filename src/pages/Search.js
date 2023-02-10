@@ -1,6 +1,7 @@
 import React from 'react';
 import { getCategories } from '../services/api';
 import CartBtn from '../components/CartBtn';
+import ProductSearch from '../components/ProductSearch';
 
 class Search extends React.Component {
   state = {
@@ -13,7 +14,6 @@ class Search extends React.Component {
 
   fetchCategories = async () => {
     const data = await getCategories();
-    // console.log(data);
 
     this.setState({
       categories: data,
@@ -29,7 +29,6 @@ class Search extends React.Component {
         <section data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </section>
-
         <section>
           {
             categories.map((category) => (
@@ -45,6 +44,8 @@ class Search extends React.Component {
         </section>
 
         <CartBtn />
+
+        <ProductSearch />
 
       </div>
     );
