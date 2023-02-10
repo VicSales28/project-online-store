@@ -8,7 +8,6 @@ class Search extends React.Component {
   state = {
     categories: [],
     productsCategory: [],
-    notResults: undefined,
   };
 
   componentDidMount() {
@@ -23,29 +22,15 @@ class Search extends React.Component {
     });
   };
 
-  resultsProduct = () => {
-    const { resultsSearch } = this.state;
-    if (resultsSearch.length !== 0) {
-      this.setState({
-        notResults: false,
-      });
-    } else {
-      this.setState({
-        notResults: true,
-      });
-    }
-  };
-
   onClickButton = async (id) => {
     const productsCategoryId = await getProductByCategory(id);
     this.setState({
       productsCategory: productsCategoryId.results,
     });
-    this.resultsProduct();
   };
 
   render() {
-    const { categories, productsCategory, notResults } = this.state;
+    const { categories, productsCategory } = this.state;
 
     return (
       <div>
@@ -68,23 +53,20 @@ class Search extends React.Component {
           }
         </section>
 
-        {notResults ? (
-          <section>
-            {productsCategory.map(({ title, thumbnail, price, id }) => (
-              <div key={ id }>
-                <ReactProducts
-                  title={ title }
-                  thumbnail={ thumbnail }
-                  price={ price }
-                />
-              </div>
-            ))}
-          </section>) : (<p>Nenhum produto foi encontrado</p>)}
-
         <CartBtn />
 
         <ProductSearch />
-
+        <section>
+          {productsCategory.map(({ title, thumbnail, price, id }) => (
+            <div key={ id }>
+              <ReactProducts
+                title={ title }
+                thumbnail={ thumbnail }
+                price={ price }
+              />
+            </div>
+          ))}
+        </section>
       </div>
     );
   }
