@@ -7,7 +7,7 @@ class ReactProducts extends Component {
     clicked: false,
   };
 
-  redirectDetails = () => {
+  handleClick = () => {
     this.setState({
       clicked: true,
     });
@@ -21,8 +21,8 @@ class ReactProducts extends Component {
       <section data-testid="product">
         <div
           data-testid="product-detail-link"
-          onClick={ this.redirectDetails }
-          onKeyDown={ this.redirectDetails }
+          onClick={ this.handleClick }
+          onKeyDown={ this.handleClick }
           role="button"
           tabIndex="0"
         >
