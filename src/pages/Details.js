@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import PropTypes from 'prop-types';
+import { addProduct } from '../services/cartProducts';
 
 class Details extends Component {
   state = {
     title: '',
     price: '',
-    imgUrl: '',
+    thumbnail: '',
     clicked: false,
   };
 
@@ -22,7 +23,8 @@ class Details extends Component {
     this.setState({
       title: data.title,
       price: data.price,
-      imgUrl: data.thumbnail,
+      thumbnail: data.thumbnail,
+      id,
     });
   };
 
@@ -32,13 +34,19 @@ class Details extends Component {
     });
   };
 
+  addToCart = () => {
+    const { title, price, thumbnail, id } = this.state;
+    const product = { title, price, thumbnail, id, quantity: 1 };
+    addProduct(product);
+  };
+
   render() {
-    const { title, price, imgUrl, clicked } = this.state;
+    const { title, price, thumbnail, clicked } = this.state;
     return (
       <main>
         <section>
           <h1 data-testid="product-detail-name">{ title }</h1>
-          <img data-testid="product-detail-image" src={ imgUrl } alt={ title } />
+          <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
         </section>
         <section>
           <h2>Especificações</h2>
@@ -51,6 +59,12 @@ class Details extends Component {
             onClick={ this.redirectToCart }
           >
             Carrinho
+          </button>
+          <button
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => this.addToCart() }
+          >
+            Adicionar ao Carrinho
           </button>
         </section>
         { clicked && <Redirect to="/shoppingcart" /> }

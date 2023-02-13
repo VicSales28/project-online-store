@@ -10,8 +10,13 @@ const saveCart = (products) => localStorage
   .setItem(PRODUCTS_TRYBE_KEY, JSON.stringify(products));
 
 export const addProduct = (product) => {
-  if (product) {
+  if (product && product.title && product.thumbnail) {
     const cart = readCart();
-    saveCart([...cart, product]);
+    const findProduct = cart.find((p) => p.id === product.id);
+    if (findProduct) {
+      findProduct.quantity += 1;
+    } else {
+      saveCart([...cart, product]);
+    }
   }
 };
