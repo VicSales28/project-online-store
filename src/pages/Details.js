@@ -10,6 +10,11 @@ class Details extends Component {
     clicked: false,
   };
 
+  async componentDidMount() {
+    const { match: { params: { id } } } = this.props;
+    this.makeFetch(id);
+  }
+
   makeFetch = async (id) => {
     const API_URL = `https://api.mercadolibre.com/items/${id}`;
     const response = await fetch(API_URL);
@@ -28,8 +33,6 @@ class Details extends Component {
   };
 
   render() {
-    const { match: { params: { id } } } = this.props;
-    this.makeFetch(id);
     const { title, price, imgUrl, clicked } = this.state;
     return (
       <main>

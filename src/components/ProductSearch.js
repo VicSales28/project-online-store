@@ -65,6 +65,7 @@ class ProductSearch extends Component {
                     title={ title }
                     thumbnail={ thumbnail }
                     price={ price }
+                    id={ id }
                   />
                 </div>
               ))}
