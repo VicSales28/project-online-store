@@ -62,7 +62,7 @@ class Details extends Component {
           </button>
           <button
             data-testid="product-detail-add-to-cart"
-            onClick={ this.addToCart() }
+            onClick={ () => this.addToCart() }
           >
             Adicionar ao Carrinho
           </button>
