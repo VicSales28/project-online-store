@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { addProduct } from '../services/cartProducts';
 
 class ReactProducts extends Component {
   state = {
@@ -18,6 +19,11 @@ class ReactProducts extends Component {
     const { title, thumbnail, price, id } = this.props;
     const { clicked } = this.state;
     const toRedirect = `/product-details/${id}`;
+
+    const addToCart = () => {
+      const product = { title, thumbnail, price, id, quantity: 1 };
+      addProduct(product);
+    };
     return (
       <section data-testid="product">
         <div
@@ -31,6 +37,12 @@ class ReactProducts extends Component {
           <img src={ thumbnail } alt={ title } />
           <p>{`R$ ${price}`}</p>
         </div>
+        <button
+          data-testid="product-add-to-cart"
+          onClick={ () => addToCart() }
+        >
+          Adicionar ao Carrinho
+        </button>
         { clicked && <Redirect to={ toRedirect } /> }
       </section>
     );
@@ -38,9 +50,9 @@ class ReactProducts extends Component {
 }
 
 ReactProducts.propTypes = {
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
 };
 export default ReactProducts;
