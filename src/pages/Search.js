@@ -1,11 +1,13 @@
 import React from 'react';
-import { getCategories } from '../services/api';
+import { getCategories, getProductByCategory } from '../services/api';
 import CartBtn from '../components/CartBtn';
 import ProductSearch from '../components/ProductSearch';
+import ReactProducts from '../components/ReactProducts';
 
 class Search extends React.Component {
   state = {
     categories: [],
+    productsCategory: [],
   };
 
   componentDidMount() {
@@ -20,8 +22,15 @@ class Search extends React.Component {
     });
   };
 
+  onClickButton = async (id) => {
+    const productsCategoryId = await getProductByCategory(id);
+    this.setState({
+      productsCategory: productsCategoryId.results,
+    });
+  };
+
   render() {
-    const { categories } = this.state;
+    const { categories, productsCategory } = this.state;
 
     return (
       <div>
@@ -36,6 +45,7 @@ class Search extends React.Component {
                 key={ category.id }
                 data-testid="category"
                 type="button"
+                onClick={ () => this.onClickButton(category.id) }
               >
                 { category.name }
               </button>
@@ -46,7 +56,17 @@ class Search extends React.Component {
         <CartBtn />
 
         <ProductSearch />
-
+        <section>
+          {productsCategory.map(({ title, thumbnail, price, id }) => (
+            <div key={ id }>
+              <ReactProducts
+                title={ title }
+                thumbnail={ thumbnail }
+                price={ price }
+              />
+            </div>
+          ))}
+        </section>
       </div>
     );
   }
