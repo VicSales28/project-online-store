@@ -15,6 +15,7 @@ class ShoppingCart extends Component {
       title={ product.title }
       thumbnail={ product.thumbnail }
       price={ product.price }
+      quantity={ product.quantity }
     />));
     return (
       <div>
