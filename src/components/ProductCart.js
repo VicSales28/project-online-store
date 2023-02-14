@@ -1,5 +1,4 @@
-// Victoria - Move ProductCart para SHoppingCart para facilitar manipulação
-
+// Victoria:  Move para Shopping Cart para facilitar manipulação dos elementos do carrinho de compras
 // import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 

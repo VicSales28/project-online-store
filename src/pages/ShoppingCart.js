@@ -1,38 +1,43 @@
 import React, { Component } from 'react';
-// import ProductCart from '../components/ProductCart';
-import { readCart } from '../services/cartProducts';
+import { readCart, addProduct,
+  decreaseProduct, removeProduct } from '../services/cartProducts';
 
 class ShoppingCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
       products: readCart(),
-      quantity: 1,
     };
   }
 
-  toIncreaseItem = () => {
-    const { quantity } = this.state;
-    this.setState({
-      quantity: quantity + 1,
-    });
+  toIncreaseItem = (product) => {
+    const { products } = this.state;
+    const objIndex = products.findIndex((p) => p.id === product.id);
+    products[objIndex].quantity += 1;
+    this.setState({ products });
+    addProduct(product);
   };
 
-  toDecreaseItem = () => {
-    const { quantity } = this.state;
-    if (quantity > 0) {
-      this.setState({ quantity: quantity - 1 });
-    } else {
-      this.setState({ quantity: 0 });
+  toDecreaseItem = (product) => {
+    const { products } = this.state;
+    const objIndex = products.findIndex((p) => p.id === product.id);
+    if (products[objIndex].quantity > 1) {
+      products[objIndex].quantity -= 1;
+      this.setState({ products });
+      decreaseProduct(product);
     }
   };
 
-  toRemove = () => {
-
+  toRemove = (product) => {
+    const { products } = this.state;
+    const objIndex = products.findIndex((p) => p.id === product.id);
+    products.splice(objIndex, 1);
+    this.setState({ products });
+    removeProduct(product);
   };
 
   render() {
-    const { products, quantity } = this.state;
+    const { products } = this.state;
 
     return (
       <div>
@@ -46,13 +51,12 @@ class ShoppingCart extends Component {
               <p data-testid="shopping-cart-product-name">{ product.title }</p>
               <img src={ product.thumbnail } alt={ product.title } />
               <p>{`R$ ${product.price}`}</p>
-              <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
+              <p data-testid="shopping-cart-product-quantity">{ product.quantity }</p>
 
               <button
                 type="button"
                 data-testid="product-increase-quantity"
-                name="increase"
-                onClick={ this.toIncreaseItem }
+                onClick={ () => this.toIncreaseItem(product) }
               >
                 +
               </button>
@@ -60,7 +64,7 @@ class ShoppingCart extends Component {
               <button
                 type="button"
                 data-testid="product-decrease-quantity"
-                onClick={ this.toDecreaseItem }
+                onClick={ () => this.toDecreaseItem(product) }
               >
                 -
               </button>
@@ -68,7 +72,7 @@ class ShoppingCart extends Component {
               <button
                 type="button"
                 data-testid="remove-product"
-                onClick={ this.toRemove() }
+                onClick={ () => this.toRemove(product) }
               >
                 Remover
               </button>
