@@ -1,24 +1,26 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// Victoria - Move ProductCart para SHoppingCart para facilitar manipulação
 
-class ProductCart extends Component {
-  render() {
-    const { title, thumbnail, price, quantity } = this.props;
-    return (
-      <div data-testid="product">
-        <p data-testid="shopping-cart-product-name">{ title }</p>
-        <img src={ thumbnail } alt={ title } />
-        <p>{`R$ ${price}`}</p>
-        <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
-      </div>
-    );
-  }
-}
+// import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
 
-ProductCart.propTypes = {
-  title: PropTypes.string.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired,
-};
-export default ProductCart;
+// class ProductCart extends Component {
+//   render() {
+//     const { title, thumbnail, price, quantity } = this.props;
+//     return (
+//       <div data-testid="product">
+//         <p data-testid="shopping-cart-product-name">{ title }</p>
+//         <img src={ thumbnail } alt={ title } />
+//         <p>{`R$ ${price}`}</p>
+//         <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
+//       </div>
+//     );
+//   }
+// }
+
+// ProductCart.propTypes = {
+//   title: PropTypes.string.isRequired,
+//   thumbnail: PropTypes.string.isRequired,
+//   price: PropTypes.number.isRequired,
+//   quantity: PropTypes.number.isRequired,
+// };
+// export default ProductCart;
